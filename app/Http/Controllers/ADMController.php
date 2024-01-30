@@ -31,7 +31,7 @@ class ADMController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => "Cliente cadastrado com sucesso",
+            'message' => "Cliente cadastrado com êxito",
             'data' => $ADM
         ], 200);
     }
@@ -48,7 +48,7 @@ class ADMController extends Controller
 
         return response()->json([
             'status' => false,
-            'message' => 'Cliente excluido com sucesso'
+            'message' => 'Cliente excluído com êxito'
         ]);
     }
 
