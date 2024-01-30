@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\ADMController;
+use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\ProfissionalController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +17,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+//ADM
+Route::post('adm/cadastroclientes', [ADMController::class, 'clientescadastro']);
+Route::delete('adm/clientes/delete/{id}', [ADMController::class, 'excluir']);
+Route::put('adm/clientes/update', [ADMController::class, 'update']);
+
+//Clientes
+Route::post('clientes', [ClienteController::class, 'clientes']);
+
+//Profissional
+Route::post('Profissional/senha/redefinir',[ProfissionalController::class, 'redefinirSenha']);
+
+//Serviço
