@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ADMFormRequest;
+use App\Http\Requests\ADMFormRequestUpdate;
+use App\Models\ADM;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class ADMController extends Controller
 {
@@ -47,9 +51,6 @@ class ADMController extends Controller
             'message' => 'Cliente excluido com sucesso'
         ]);
     }
-
-
-
 
     public function update(ADMFormRequestUpdate $request)
     {

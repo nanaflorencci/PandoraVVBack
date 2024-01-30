@@ -9,7 +9,6 @@ class Profissional extends Model
 {
     use HasFactory;
     protected $fillable =[
-
         'nome',
         'celular',
         'email',

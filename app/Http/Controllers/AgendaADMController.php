@@ -42,7 +42,7 @@ class AgendaADMController extends Controller
         } else {
 
             $agenda = AgendaADM::create([
-                'profissional_Id' => $request->profissional_Id,
+                'profissional_Id' => $request->adm_Id,
                 'data_Hora' => $request->data_Hora
             ]);
             return response()->json([
