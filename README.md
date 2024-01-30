@@ -28,6 +28,10 @@ code .
 ```
 php artisan serve
 ```
+7. Para acessar o banco de dados:
+```
+php artisan migrate
+```
 
 # Insomnia
 
