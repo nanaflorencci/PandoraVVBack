@@ -18,7 +18,7 @@ class PagamentoController extends Controller
 
         return response()->json([
             "success" => true,
-            "message" => "Pagamento cadastrado com sucesso",
+            "message" => "Pagamento cadastrado com êxito",
             "data" => $pagamento
         ], 200);
     }
@@ -54,7 +54,7 @@ class PagamentoController extends Controller
         
         return response()->json(([
             'status' => true,
-            'message' =>  "pagamento excluido com sucesso"
+            'message' =>  "Pagamento excluído com êxito"
         ]));
     }
     
@@ -64,7 +64,7 @@ class PagamentoController extends Controller
         if (!isset($pagamento)) {
             return response()->json([
                 'status' => false,
-                'message' => 'pagamento não encontrado'
+                'message' => 'Pagamento não encontrado'
             ]);
         }
         
@@ -79,7 +79,7 @@ class PagamentoController extends Controller
         $pagamento->update();
         return response()->json([
             'status' => true,
-            'message' => 'Tipo de pagamento ataulizado'
+            'message' => 'Tipo de pagamento atualizado'
         ]);
     }
     
@@ -89,7 +89,7 @@ class PagamentoController extends Controller
         if (!isset($pagamento)) {
             return response()->json([
                 'status' => false,
-                'message' => 'Não há registros no sitema'
+                'message' => 'Não há registros no sistema'
             ]);
         }
         

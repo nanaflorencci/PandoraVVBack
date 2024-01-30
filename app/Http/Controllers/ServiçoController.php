@@ -21,7 +21,7 @@ class ServiçoController extends Controller
         
         return response()->json([
             'sucess' => true,
-            'message' => "Servico Cadastrado com sucesso",
+            'message' => "Serviço cadastrado com êxito",
             'data' => $servico
         ]);
     }
@@ -98,7 +98,7 @@ class ServiçoController extends Controller
 
         return response()->json([
             'status' => true,
-            'message' => "serviço excluído com sucesso"
+            'message' => "serviço excluído com êxito"
         ]);
     }
 

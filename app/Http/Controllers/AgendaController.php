@@ -21,7 +21,7 @@ class AgendaController extends Controller
 
         return response()->json([
             "success" => true,
-            "message" => "agenda cadastrado",
+            "message" => "Agenda cadastrada",
             "data" => $agenda
         ], 200);
     }
@@ -34,7 +34,7 @@ class AgendaController extends Controller
         if (count($agenda) > 0) {
             return response()->json([
                 "status" => false,
-                "message" => "Horario já cadastrado",
+                "message" => "Horário já cadastrado",
                 "data" => $agenda
             ], 200);    
         } else {
@@ -45,7 +45,7 @@ class AgendaController extends Controller
             ]);
             return response()->json([
                 "status" => true,
-                "message" => "Agendado com sucesso",
+                "message" => "Agendado com êxito",
                 "data" => $agenda
             ], 200);
         }
