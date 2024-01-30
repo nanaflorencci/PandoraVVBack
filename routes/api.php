@@ -58,6 +58,5 @@ Route::post('agenda/pesquisaDataHora',[AgendaController::class, 'pesquisarPorDat
 Route::put('editar/pagamento', [PagamentoController::class,  'updateTipoPagamento']);
 Route::post('cadastro/pagamento', [PagamentoController::class,'cadastroTipoPagamento']);
 Route::post('pesquisar/nome/pagamento', [PagamentoController::class,'pesquisarPorTipoPagamento']);
-Route::post('excluir/pagamento', [PagamentoController::class,'deletarTipoPagamento']);
 Route::delete('delete/pagamento/{id}', [PagamentoController::class, 'deletarTipoPagamento']);
 Route::get('visualizar/pagamento', [PagamentoController::class,'visualizarCadastroTipoPagamento']);
