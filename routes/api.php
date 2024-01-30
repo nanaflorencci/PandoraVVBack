@@ -3,6 +3,7 @@
 use App\Http\Controllers\ADMController;
 use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\PagamentoController;
 use App\Http\Controllers\ProfissionalController;
 use App\Http\Controllers\ServiçoController;
 use Illuminate\Http\Request;
@@ -52,3 +53,11 @@ Route::get('servico/pesquisar/{id}',[ServiçoController::class, 'pesquisarPorId'
 Route::post('agenda/criar', [AgendaController::class, 'criarAgenda']);
 Route::post('agenda/criar/horario', [AgendaController::class, 'criarHorarioProfissional']);
 Route::post('agenda/pesquisaDataHora',[AgendaController::class, 'pesquisarPorDataDoProfissional']);
+
+//Forma de Pagamento
+Route::put('editar/pagamento', [PagamentoController::class,  'updateTipoPagamento']);
+Route::post('cadastro/pagamento', [PagamentoController::class,'cadastroTipoPagamento']);
+Route::post('pesquisar/nome/pagamento', [PagamentoController::class,'pesquisarPorTipoPagamento']);
+Route::post('excluir/pagamento', [PagamentoController::class,'deletarTipoPagamento']);
+Route::delete('delete/pagamento/{id}', [PagamentoController::class, 'deletarTipoPagamento']);
+Route::get('visualizar/pagamento', [PagamentoController::class,'visualizarCadastroTipoPagamento']);

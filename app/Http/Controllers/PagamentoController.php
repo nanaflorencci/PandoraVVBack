@@ -23,7 +23,7 @@ class PagamentoController extends Controller
         ], 200);
     }
 
-    public function pesquisarPorTipoPagamento(Request $request)
+    public function pesquisarPorTpoPagamento(Request $request)
     {
         $pagamento = Pagamento::where('nome', 'like', '%' . $request->nome . '%')->get();
         
@@ -40,7 +40,7 @@ class PagamentoController extends Controller
         ]);
     }
     
-    public function deletarpagamento($pagamento)
+    public function deletarTipoPagamento($pagamento)
     {
         $pagamento = Pagamento::find($pagamento);
         
@@ -58,7 +58,7 @@ class PagamentoController extends Controller
         ]));
     }
     
-    public function updatepagamento(PagamentoFormRequestUpdate $request)
+    public function updateTipoPagamento(PagamentoFormRequestUpdate $request)
     {
         $pagamento = Pagamento::find($request->id);
         if (!isset($pagamento)) {
