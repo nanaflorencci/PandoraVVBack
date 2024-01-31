@@ -9,25 +9,24 @@ use Illuminate\Http\Request;
 
 class ServiçoController extends Controller
 {
-    public function Servico(ServiçoFormRequest $request)
+    public function Servico(ServicoFormRequest $request)
     {
-        $servico = Serviço::create([
+        $servico = Servico::create([
             'nome' => $request->nome,
             'descricao' => $request->descricao,
             'duracao' => $request->duracao,
             'preco' => $request->preco,
 
         ]);
-        
         return response()->json([
             'sucess' => true,
-            'message' => "Serviço cadastrado com êxito",
+            'message' => "Servico Cadastrado com sucesso",
             'data' => $servico
         ]);
     }
     public function pesquisarPorNome(Request $request)
     {
-        $servico = Serviço::where('nome', 'like', '%' . $request->nome . '%')->get();
+        $servico = Servico::where('nome', 'like', '%' . $request->nome . '%')->get();
 
         if (count($servico) > 0) {
 
@@ -36,57 +35,16 @@ class ServiçoController extends Controller
                 'data' => $servico
             ]);
         }
-        
-        return response()->json([
-            'status' => false,
-            'message' => 'Não há resultados para pesquisa.'
-        ]);
-    }
     
-    public function pesquisarPoDescricao(Request $request)
-    {
-        $servico = Serviço::where('descricao', 'like', '%' . $request->descricao . '%')->get();
-
-        if (count($servico) > 0) {
-
-            return response()->json([
-                'status' => true,
-                'data' => $servico
-            ]);
-        }
-
         return response()->json([
             'status' => false,
             'message' => 'Não há resultados para pesquisa.'
-        ]);
-    }
-    public function retornarTodos(){
-        $servico = Serviço::all();
-        return response()->json([
-            'status'=> true,
-            'data'=> $servico
-        ]);
-    }
-
-    public function pesquisarPorId($id){
-        $servico = Serviço::find($id);
-        if($servico == null){
-            return response()->json([
-                'status'=> false,
-                'message' => "Serviço não encontrado"
-            ]);     
-        }
-        return response()->json([
-            'status'=> true,
-            'data'=> $servico
         ]);
     }
 
     public function excluir($id)
     {
-
-        $servico = Serviço::find($id);
-        
+        $servico = Servico::find($id);
         if (!isset($servico)) {
             return response()->json([
                 'status' => false,
@@ -98,12 +56,12 @@ class ServiçoController extends Controller
 
         return response()->json([
             'status' => true,
-            'message' => "serviço excluído com êxito"
+            'message' => "serviço excluído com sucesso"
         ]);
     }
 
-    public function update(ServiçoFormRequestUpdate $request){
-        $servico = Serviço::find($request->id);
+    public function update(ServicoFormRequestUpdate $request){
+        $servico = servico::find($request->id);
     
         if(!isset($servico)){
             return response()->json([
@@ -131,5 +89,6 @@ class ServiçoController extends Controller
             'status' => false,
             'message' => "Serviço atualizado"
         ]);
+    
     }
 }

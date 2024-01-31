@@ -24,7 +24,7 @@ class PagamentoFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nome' => 'required|unique:tipo_pagamentos,nome|max:120|min:2',
+            'nome' => 'required|unique:pagamentos,nome|max:120|min:2',
             'taxa'=>'required|max:120|min:3',
         ];
     }

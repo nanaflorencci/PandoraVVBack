@@ -8,12 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Agenda extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'cliente_Id',
-        'profissional_Id',
-        'data_Hora',
-        'servico_Id',
-        'pagamento',
-        'valor',
-    ];
+    
+    protected $fillable =[
+        'nome',
+        'email',
+        'cpf',
+        'password'
+    ];    
 }

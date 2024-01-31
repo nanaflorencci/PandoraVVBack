@@ -10,47 +10,76 @@ use Illuminate\Support\Facades\Hash;
 
 class ADMController extends Controller
 {
-    public function Clientescadastro(ADMFormRequest $request)
+    public function ADMcadastro(ADMFormRequest $request)
     {
         $ADM = ADM::create([
             'nome' => $request->nome,
-            'celular' => $request->celular,
             'email' => $request->email,
             'cpf' => $request->cpf,
-            'dataNascimento' => $request->dataNascimento,
-            'cidade' => $request->cidade,
-            'estado' => $request->estado,
-            'pais' => $request->pais,
-            'rua' => $request->rua,
-            'numero' => $request->numero,
-            'bairro' => $request->bairro,
-            'cep' => $request->cep,
-            'complemento' => $request->complemento,
             'password' => Hash::make($request->senha),
         ]);
 
         return response()->json([
             'success' => true,
-            'message' => "Cliente cadastrado com êxito",
+            'message' => "ADM cadastrado com sucesso",
             'data' => $ADM
         ], 200);
     }
+
+    public function redefinirSenha(Request $request)
+    {
+        $ADM =  ADM::where('email', $request->email)->first();
+        
+        if (!isset($ADM)) {
+            return response()->json([
+                'status' => false,
+                'message' => "ADM não encontrado"
+            ]);
+        }
+
+        $ADM->password = Hash::make($ADM->cpf);
+        $ADM->update();    
+
+        return response()->json([
+            'status' => false,
+            'message' => "Sua senha foi atualizada"
+        ]);
+    }
+
+
     public function excluir($id)
     {
         $ADM  = ADM ::find($id);
         if (!isset($ADM )) {
             return response()->json([
                 'status' => false,
-                'message' => "Cliente não encontrado"
+                'message' => "ADM não encontrado"
             ]);
         }
         $ADM ->delete();
 
         return response()->json([
             'status' => false,
-            'message' => 'Cliente excluído com êxito'
+            'message' => 'ADM excluido com sucesso'
         ]);
     }
+
+
+    public function pesquisarPorNome(Request $request)
+    {
+        $ADM =  ADM::where('nome', 'like', '%' . $request->nome . '%')->get();
+        if (count($ADM) > 0) {
+            return response()->json([
+                'status' => true,
+                'data' => $ADM
+            ]);
+        }
+        return response()->json([
+            'status' => false,
+            'message' => 'não há resultados para pesquisa.'
+        ]);
+    }
+
 
     public function update(ADMFormRequestUpdate $request)
     {
@@ -59,7 +88,7 @@ class ADMController extends Controller
         if (!isset($ADM )) {
             return response()->json([
                 'status' => false,
-                'message' => "Cliente não encontrado"
+                'message' => "ADM não encontrado"
             ]);
         }
 
@@ -103,14 +132,14 @@ class ADMController extends Controller
             $ADM->complemento = $request->complemento;
         }
         if (isset($request->password)) {
-            $ADM->senha = $request->senha;
+            $ADM->password = $request->password;
         }
 
         $ADM->update();
 
         return response()->json([
             'status' => false,
-            'message' => "Cliente atualizado"
+            'message' => "ADM atualizado"
         ]);
     }
 }

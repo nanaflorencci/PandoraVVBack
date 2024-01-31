@@ -24,14 +24,17 @@ class AgendaFormRequestUpdate extends FormRequest
     public function rules(): array
     {
         return [
-            'profissional_Id' => 'required|integer|exists:profissional_models,id',
-            'cliente_Id' => 'integer',
-            'servico_Id'  => 'integer',
+           
+            'profissional_id' => 'required|integer|exists:profissionals,id',
+            'cliente_id' => 'integer',
+            'servico_id'  => 'integer',
             'data_Hora' => 'required|date|unique:agendas,data_Hora',
-            'pagamento' => '|max:20|min:3',
-            'valor' => '|decimal:2,4'
+            'pagamento' => 'max:20|min:3',
+            'valor' => 'decimal:2,4'
         ];
-    } public function failedValidation(Validator $validator){
+    }
+    public function failedValidation(Validator $validator)
+    {
         throw new HttpResponseException(response()->json([
             'success' => false,
             'error' => $validator->errors()
@@ -40,15 +43,15 @@ class AgendaFormRequestUpdate extends FormRequest
 
     public function messages()
     {
-        return[
-        'profissional_Id.required' => 'Campo profissional é obrigatório',
-        'profissional_Id.exists' => 'profissional não existe',
-        'data_Hora.required' => 'Campo data é obrigatório',
-        'data_Hora.date' => 'Formato Inválido',
-        'data_Hora.unique' => 'esse horario já foi reservado',
-        'pagamento.max' => 'Campo pagamento deve conter no maximo 20 caracteres',
-        'pagamento.min' => 'Campo pagamento deve conter no minimo 3 caracteres',
-        'valor.decimal' => 'Este campo so aceita numero decimal'
+        return [
+            'profissional_id.required' => 'Campo profissional é obrigatório',
+            'profissional_id.exists' => 'profissional não existe',
+            'data_Hora.required' => 'Campo data é obrigatório',
+            'data_Hora.date' => 'Formato inválido',
+            'data_Hora.unique' => 'esse horario já foi reservado',
+            'pagamento.max' => 'Campo pagamento deve conter no maximo 20 caracteres',
+            'pagamento.min' => 'Campo pagamento deve conter no minimo 3 caracteres',
+            'valor.decimal' => 'Este campo so aceita numero decimal'
         ];
     }
 }

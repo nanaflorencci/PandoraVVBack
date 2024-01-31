@@ -30,10 +30,25 @@ class ProfissionalController extends Controller
         ]);
         return response()->json([
             'success' => true,
-            'message' => "Profissional cadastrado com êxito",
+            'message' => "Profissional cadastrado com sucesso",
             'data' => $Profissional
         ], 200);
     }
+    public function pesquisarPorNome(Request $request)
+    {
+        $Profissional =  Profissional::where('nome', 'like', '%' . $request->nome . '%')->get();
+        if (count($Profissional) > 0) {
+            return response()->json([
+                'status' => true,
+                'data' => $Profissional
+            ]);
+        }
+        return response()->json([
+            'status' => false,
+            'message' => "não há resultados para pesquisa."
+        ]);
+    }
+
     public function redefinirSenha(Request $request)
     {
         $Profissional =  Profissional::where('email', $request->email)->first();
@@ -54,4 +69,89 @@ class ProfissionalController extends Controller
         ]);
     }
 
+    public function excluir($id)
+    {
+        $Profissional = Profissional::find($id);
+        if (!isset($Profissional)) {
+            return response()->json([
+                "status" => false,
+                "message" => "Profissional não encontrado"
+            ]);
+        }
+        $profissional_agendamento = Agenda::where('profissional_id', $id)->get(); 
+        if(count($profissional_agendamento) > 0){ 
+            return response()->json([
+                'status' => false, 
+                'message' => 'Não foi possível excluir pois o profissional possui agendamentos registrados.'
+            ]);
+        }
+        $Profissional->delete();
+
+        return response()->json([
+            'status' => false,
+            'message' => 'Profissional excluido com sucesso'
+        ]);
+    }
+
+    public function update(ProfissionalFormRequestUpdate $request)
+    {
+        $Profissional = Profissional::find($request->id);
+
+        if (!isset($Profissional)) {
+            return response()->json([
+                'status' => false,
+                'message' => "Profissional não encontrado"
+            ]);
+        }
+
+        if (isset($request->nome)) {
+            $Profissional->nome= $request->nome;
+        }
+        if (isset($request->celular)) {
+            $Profissional->celular= $request->celular;
+        }
+        if (isset($request->email)) {
+            $Profissional->email= $request->email;
+        }
+        if (isset($request->cpf)) {
+            $Profissional->cpf= $request->cpf;
+        }
+        if (isset($request->dataNascimento)) {
+            $Profissional->dataNascimento= $request->dataNascimento;
+        }
+        if (isset($request->cidade)) {
+            $Profissional->cidade= $request->cidade;
+        }
+        if (isset($request->estado)) {
+            $Profissional->estado= $request->estado;
+        }
+        if (isset($request->pais)) {
+            $Profissional->pais= $request->pais;
+        }
+        if (isset($request->rua)) {
+            $Profissional->rua= $request->rua;
+        }
+        if (isset($request->numero)) {
+            $Profissional->numero= $request->numero;
+        }
+        if (isset($request->bairro)) {
+            $Profissional->bairro= $request->bairro;
+        }
+        if (isset($request->cep)) {
+            $Profissional->cep= $request->cep;
+        }
+        if (isset($request->complemento)) {
+            $Profissional->complemento= $request->complemento;
+        }
+        if (isset($request->password)) {
+            $Profissional->password= $request->password;
+        }
+
+        $Profissional->update();
+
+        return response()->json([
+            'status' => false,
+            'message' => "Profissional atualizado"
+        ]);
+    }
 }

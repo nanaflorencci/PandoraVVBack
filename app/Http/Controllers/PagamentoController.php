@@ -23,10 +23,10 @@ class PagamentoController extends Controller
         ], 200);
     }
 
-    public function pesquisarPorTpoPagamento(Request $request)
+    public function pesquisarPorTipoPagamento(Request $request)
     {
         $pagamento = Pagamento::where('nome', 'like', '%' . $request->nome . '%')->get();
-        
+
         if (count($pagamento)) {
             return response()->json([
                 'status' => true,
@@ -39,63 +39,83 @@ class PagamentoController extends Controller
             'data' => "Pagamento não encontrado"
         ]);
     }
-    
-    public function deletarTipoPagamento($pagamento)
+
+    public function deletarpagamento($pagamento)
     {
         $pagamento = Pagamento::find($pagamento);
-        
+
         if (!isset($pagamento)) {
             return response()->json([
-         'status' => false,
-         'message' => "Pagamento não encontrado"]);
+                'status' => false,
+                'message' => "Pagamento não encontrado"
+            ]);
         }
-        
+
         $pagamento->delete();
-        
+
         return response()->json(([
             'status' => true,
             'message' =>  "Pagamento excluído com êxito"
         ]));
     }
     
-    public function updateTipoPagamento(PagamentoFormRequestUpdate $request)
+    public function updatepagamento(PagamentoFormRequestUpdate $request)
     {
         $pagamento = Pagamento::find($request->id);
+
         if (!isset($pagamento)) {
+
             return response()->json([
+
                 'status' => false,
+
                 'message' => 'Pagamento não encontrado'
+
             ]);
         }
-        
+
         if (isset($request->nome)) {
+
             $pagamento->nome = $request->nome;
         }
-        
+
         if (isset($request->taxa)) {
+
             $pagamento->taxa = $request->taxa;
         }
-        
+
         $pagamento->update();
+
         return response()->json([
+
             'status' => true,
+
             'message' => 'Tipo de pagamento atualizado'
         ]);
     }
-    
-    public function visualizarCadastroTipoPagamento()
-    {
-        $pagamento = Pagamento::all();
-        if (!isset($pagamento)) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Não há registros no sistema'
-            ]);
-        }
-        
-        return response()->json([
-            'status' => true,
-            'data' => $pagamento
-        ]);
-    }
-}
+
+    public function visualizarCadastroTipoPagamento() 
+    { 
+        $pagamento = Pagamento::all(); 
+
+        if (!isset($pagamento)) { 
+
+            return response()->json([ 
+
+                'status' => false, 
+
+                'message' => 'Não há registros no sistema' 
+
+            ]); 
+
+        } 
+
+        return response()->json([ 
+
+            'status' => true, 
+
+            'data' => $pagamento 
+
+        ]); 
+    } 
+} 
