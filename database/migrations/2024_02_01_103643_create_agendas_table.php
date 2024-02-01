@@ -13,14 +13,16 @@ return new class extends Migration
     {
         Schema::create('agendas', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('profissional_Id')->unsigned()->nullable(false);
-            $table->integer('cliente_Id')->nullable(true);
+            $table->biginteger('profissional_id')->unsigned()->nullable(false);
+            $table->biginteger('cliente_id')->unsigned()->nullable(true);
             $table->dateTime('data_Hora' )->nullable(false);
-            $table->integer('servico_Id')->nullable(true);
+            $table->biginteger('servico_id')->unsigned()->nullable(true);
             $table->string('pagamento', 20)->nullable(true);
             $table->integer('valor')->nullable(true);
             $table->timestamps();
-            $table->foreign('profissional_Id')->references('id')->on('profissional_models');
+            $table->foreign('profissional_id')->references('id')->on('profissionals');
+            $table->foreign('cliente_id')->references('id')->on('clientes');
+            $table->foreign('servico_id')->references('id')->on('servicos');
         });
     }
 

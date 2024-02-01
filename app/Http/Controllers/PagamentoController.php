@@ -14,6 +14,7 @@ class PagamentoController extends Controller
         $pagamento = Pagamento::create([
             'nome' => $request->nome,
             'taxa' => $request->taxa,
+            'status' => $request->status
         ]);
 
         return response()->json([
@@ -118,4 +119,34 @@ class PagamentoController extends Controller
 
         ]); 
     } 
-} 
+
+    public function visualizarCadastroPagamentoHabilitado()
+    {
+        $pagamento = Pagamento::where('status', 'habilitado')->get();
+        if ($pagamento->count() > 0) {
+            return response()->json([
+                'status' => true,
+                'data' => $pagamento
+            ]);
+        }
+        return response()->json([
+            'status' => false,
+            'message' => 'Não há registros no sistema'
+        ]);
+    }
+
+    public function visualizarCadastroPagamentoDesabilitado()
+    {
+        $pagamento = Pagamento::where('status', 'desabilitado')->get();
+        if ($pagamento->count() > 0) {
+            return response()->json([
+                'status' => true,
+                'data' => $pagamento
+            ]);
+        }
+        return response()->json([
+            'status' => false,
+            'message' => 'Não há registros no sistema'
+        ]);
+    }
+}

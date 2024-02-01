@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ServiçoFormRequest;
-use App\Http\Requests\ServiçoFormRequestUpdate;
-use App\Models\Serviço;
+use App\Http\Requests\ServicoFormRequest;
+use App\Http\Requests\ServicoFormRequestUpdate;
+use App\Models\Servico;
 use Illuminate\Http\Request;
 
-class ServiçoController extends Controller
+class ServicoController extends Controller
 {
     public function Servico(ServicoFormRequest $request)
     {
@@ -35,12 +35,14 @@ class ServiçoController extends Controller
                 'data' => $servico
             ]);
         }
-    
+        
+
         return response()->json([
             'status' => false,
             'message' => 'Não há resultados para pesquisa.'
         ]);
     }
+    
 
     public function excluir($id)
     {
@@ -48,7 +50,7 @@ class ServiçoController extends Controller
         if (!isset($servico)) {
             return response()->json([
                 'status' => false,
-                'message' => "Serviço não encontrado"
+                'message' => "Servico não encontrado"
             ]);
         }
 
@@ -56,17 +58,17 @@ class ServiçoController extends Controller
 
         return response()->json([
             'status' => true,
-            'message' => "serviço excluído com sucesso"
+            'message' => "servico excluído com sucesso"
         ]);
     }
 
     public function update(ServicoFormRequestUpdate $request){
-        $servico = servico::find($request->id);
+        $servico = Servico::find($request->id);
     
         if(!isset($servico)){
             return response()->json([
                 'status' => false,
-                'message' => "Serviço não encontrado"
+                'message' => "Servico não encontrado"
             ]);
         }
     
@@ -87,7 +89,7 @@ class ServiçoController extends Controller
     
         return response()->json([
             'status' => false,
-            'message' => "Serviço atualizado"
+            'message' => "Servico atualizado"
         ]);
     
     }

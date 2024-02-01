@@ -11,9 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('agenda_a_d_m_s', function (Blueprint $table) {
+        Schema::create('servicos', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->string('nome',80)->unique()->nullable(false);
+            $table->string('descricao',200)->nullable(false);
+            $table->integer('duracao')->numeric()->nullable(false);
+            $table->decimal('preco')->decimal()->nullable(false);
         });
     }
 
@@ -22,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('agenda_a_d_m_s');
+        Schema::dropIfExists('servicos');
     }
 };

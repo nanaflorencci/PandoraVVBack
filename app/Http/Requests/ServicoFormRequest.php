@@ -6,7 +6,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class ServiçoFormRequestUpdate extends FormRequest
+class ServicoFormRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,6 +24,7 @@ class ServiçoFormRequestUpdate extends FormRequest
     public function rules(): array
     {
         return [
+            
             'nome' => 'required|max:80|min:5|unique:servicos,nome',
             'descricao' => 'required|max:200|min:10',
             'duracao' => 'required|numeric',
@@ -33,6 +34,7 @@ class ServiçoFormRequestUpdate extends FormRequest
     public function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(response()->json([
+            
             'success' => false,
             'error' => $validator->errors()
         ]));

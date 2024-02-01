@@ -5,7 +5,7 @@ use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\PagamentoController;
 use App\Http\Controllers\ProfissionalController;
-use App\Http\Controllers\ServiçoController;
+use App\Http\Controllers\ServicoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -62,3 +62,5 @@ Route::post('cadastro/pagamento', [PagamentoController::class,'cadastroTipoPagam
 Route::post('pesquisar/nome/pagamento', [PagamentoController::class,'pesquisarPorTipoPagamento']);
 Route::delete('delete/pagamento/{id}', [PagamentoController::class, 'deletarPagamento']);
 Route::get('visualizar/pagamento', [PagamentoController::class,'visualizarCadastroTipoPagamento']);
+Route::get('visualizar/pagamento/habilitado', [PagamentoController::class, 'visualizarCadastroPagamentoHabilitado']);
+Route::get('visualizar/pagamento/desabilitado', [PagamentoController::class, 'visualizarCadastroPagamentoDesabilitado']);
