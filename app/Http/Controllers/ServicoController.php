@@ -16,7 +16,6 @@ class ServicoController extends Controller
             'descricao' => $request->descricao,
             'duracao' => $request->duracao,
             'preco' => $request->preco,
-
         ]);
         return response()->json([
             'sucess' => true,
@@ -24,26 +23,22 @@ class ServicoController extends Controller
             'data' => $servico
         ]);
     }
+
     public function pesquisarPorNome(Request $request)
     {
         $servico = Servico::where('nome', 'like', '%' . $request->nome . '%')->get();
-
         if (count($servico) > 0) {
-
             return response()->json([
                 'status' => true,
                 'data' => $servico
             ]);
         }
-        
-
         return response()->json([
             'status' => false,
             'message' => 'Não há resultados para pesquisa.'
         ]);
     }
     
-
     public function excluir($id)
     {
         $servico = Servico::find($id);
@@ -53,9 +48,7 @@ class ServicoController extends Controller
                 'message' => "Servico não encontrado"
             ]);
         }
-
         $servico->delete();
-
         return response()->json([
             'status' => true,
             'message' => "servico excluído com sucesso"
@@ -64,14 +57,12 @@ class ServicoController extends Controller
 
     public function update(ServicoFormRequestUpdate $request){
         $servico = Servico::find($request->id);
-    
         if(!isset($servico)){
             return response()->json([
                 'status' => false,
                 'message' => "Servico não encontrado"
             ]);
         }
-    
         if(isset($request->nome)){
             $servico->nome = $request->nome;
         }
@@ -84,13 +75,10 @@ class ServicoController extends Controller
         if(isset($request->preco)){
             $servico->preco = $request->preco;
         }
-    
         $servico->update();
-    
         return response()->json([
             'status' => false,
             'message' => "Servico atualizado"
         ]);
-    
     }
 }

@@ -45,8 +45,10 @@ class PagamentoFormRequestUpdate extends FormRequest
             'nome.max' => 'O campo nome deve conter, no máximo, 120 caracteres',
             'nome.min' => 'O campo nome deve conter, no mínimo, 2 caracteres',
             'nome.unique' => 'este nome já foi cadastrado. Por favor, informe outro nome',
+
             'taxa.required' => 'O campo taxa é obrigatório',
             'taxa.max' => 'O campo taxa deve conter 120 caracteres',
+            
             'status.required' => 'O campo status é obrigatorio.',
             'status.max' => 'O campo status deve conter, no máximo, 120 caracteres',
             'status.max' => 'O campo status deve conter, no mínimo, 3 caracteres',

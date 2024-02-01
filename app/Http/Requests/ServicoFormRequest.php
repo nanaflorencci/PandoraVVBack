@@ -47,11 +47,14 @@ class ServicoFormRequest extends FormRequest
             'nome.max' => 'O campo nome deve ter no maximo 80 caracteres',
             'nome.min' => 'O campo nome deve ter no minimo 5 caracteres',
             'nome.unique'=>'O nome já foi cadastrado',
+
             'descricao.required'=>'O campo descrição é obrigatório',
             'descricao.max'=>'O campo descriçao deve ter no maximo 200 caracteres',
             'descricao.min'=>'O campo descrição deve ter no mínimo 10 caracteres',
+
             'duracao.required'=> 'O campo duração é obrigátorio',
             'duracao.numeric'=>'O campo duração deve ter apenas números',
+            
             'preco.required'=>'O campo preço é obrigátorio',
             'preco.decimal'=>'O campo preço só é permitido números decimais'
         ];

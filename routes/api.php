@@ -55,7 +55,6 @@ Route::get('agenda/retornaTodos', [AgendaController::class, 'retornarTudo']);
 Route::delete('agenda/delete/{id}',[AgendaController::class, 'excluiAgenda']);
 Route::put('agenda/update', [AgendaController::class, 'updateAgenda']);
 
-
 //Forma de pagamento
 Route::put('editar/pagamento', [PagamentoController::class,  'updatepagamento']);
 Route::post('cadastro/pagamento', [PagamentoController::class,'cadastroTipoPagamento']);

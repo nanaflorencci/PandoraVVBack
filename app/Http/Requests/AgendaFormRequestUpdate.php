@@ -46,11 +46,14 @@ class AgendaFormRequestUpdate extends FormRequest
         return [
             'profissional_id.required' => 'Campo profissional é obrigatório',
             'profissional_id.exists' => 'profissional não existe',
+
             'data_Hora.required' => 'Campo data é obrigatório',
             'data_Hora.date' => 'Formato inválido',
             'data_Hora.unique' => 'esse horario já foi reservado',
+
             'pagamento.max' => 'Campo pagamento deve conter no maximo 20 caracteres',
             'pagamento.min' => 'Campo pagamento deve conter no minimo 3 caracteres',
+            
             'valor.decimal' => 'Este campo so aceita numero decimal'
         ];
     }

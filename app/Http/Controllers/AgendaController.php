@@ -28,9 +28,7 @@ class AgendaController extends Controller
     }
     public function criarHorarioProfissional(AgendaFormRequest $request)
     {
-
         $agenda = Agenda::where('data_Hora', '=', $request->data_Hora)->where('profissional_id', '=', $request->profissional_id)->get();
-
         if (count($agenda) > 0) {
             return response()->json([
                 "status" => false,
@@ -38,7 +36,6 @@ class AgendaController extends Controller
                 "data" => $agenda
             ], 200);    
         } else {
-
             $agenda = Agenda::create([
                 'profissional_id' => $request->profissional_id,
                 'data_Hora' => $request->data_Hora
@@ -50,6 +47,7 @@ class AgendaController extends Controller
             ], 200);
         }
     }
+
     public function pesquisarPorDataDoProfissional(Request $request){
         if ($request->profissional_id == 0 || $request->profissional_id ==''){
             $agenda = Agenda::all();
@@ -71,9 +69,9 @@ class AgendaController extends Controller
             'message' => 'Sem resultados para sua pesquisa.'
         ]);
     }
+
     public function excluiAgenda($id)
     {
-        
         $agenda = Agenda::find($id);
         if (!isset($agenda)) {
             return response()->json([
@@ -81,24 +79,22 @@ class AgendaController extends Controller
                 'message' => " não encontrado"
             ]);
         }
-
         $agenda->delete();
         return response()->json([
             'status' => true,
             'message' => " excluído com sucesso"
         ]);
     }
+
     public function updateAgenda(AgendaFormRequestUpdate $request)
     {
         $agenda = Agenda::find($request->id);
-
         if (!isset($agenda)) {
             return response()->json([
                 'status' => false,
                 'message' => "agenda não encontrado"
             ]);
         }
-       
         if(isset($request->clienteid)){
         $agenda-> clienteid = $request->clienteid;
         }
@@ -117,18 +113,15 @@ class AgendaController extends Controller
         if(isset($request->valor)){
             $agenda-> valor = $request->valor;
         }
-
         $agenda->update();
-
         return response()->json([
             'status' => true,
             'message' => " atualizado."
         ]);
-       
     }
+
     public function retornarTudo(){
         $agenda = Agenda::all();
-
         if(count($agenda)==0){
             return response()->json([
                 'status'=> false,
@@ -139,5 +132,5 @@ class AgendaController extends Controller
             'status'=> true,
             'data' => $agenda
         ]);
-       }
+    }
 }

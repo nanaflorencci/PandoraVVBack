@@ -45,7 +45,6 @@ class ADMFormRequest extends FormRequest
             'nome.max' => 'o campo nome deve contar no maximo 120 caracteres',
             'nome.min' => 'o campo nome deve contar no minimo 5 caracteres',
 
-           
             'email.required' => 'o email é obrigatorio',
             'email.email' => 'formato de email invalido',
             'email.unique' => 'email ja cadastrado no sistema',

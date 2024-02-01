@@ -36,6 +36,7 @@ class ProfissionalController extends Controller
             'data' => $Profissional
         ], 200);
     }
+
     public function pesquisarPorNome(Request $request)
     {
         $Profissional =  Profissional::where('nome', 'like', '%' . $request->nome . '%')->get();
@@ -61,10 +62,8 @@ class ProfissionalController extends Controller
                 'message' => "Profissional não encontrado"
             ]);
         }
-
         $Profissional->password = Hash::make($Profissional->cpf);
         $Profissional->update();    
-
         return response()->json([
             'status' => false,
             'message' => "Sua senha foi atualizada"
@@ -88,7 +87,6 @@ class ProfissionalController extends Controller
             ]);
         }
         $Profissional->delete();
-
         return response()->json([
             'status' => false,
             'message' => 'Profissional excluido com sucesso'
@@ -98,14 +96,12 @@ class ProfissionalController extends Controller
     public function update(ProfissionalFormRequestUpdate $request)
     {
         $Profissional = Profissional::find($request->id);
-
         if (!isset($Profissional)) {
             return response()->json([
                 'status' => false,
                 'message' => "Profissional não encontrado"
             ]);
         }
-
         if (isset($request->nome)) {
             $Profissional->nome= $request->nome;
         }
@@ -148,9 +144,7 @@ class ProfissionalController extends Controller
         if (isset($request->password)) {
             $Profissional->password= $request->password;
         }
-
         $Profissional->update();
-
         return response()->json([
             'status' => false,
             'message' => "Profissional atualizado"

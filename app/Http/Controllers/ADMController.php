@@ -18,7 +18,6 @@ class ADMController extends Controller
             'cpf' => $request->cpf,
             'password' => Hash::make($request->senha),
         ]);
-
         return response()->json([
             'success' => true,
             'message' => "ADM cadastrado com sucesso",
@@ -29,23 +28,19 @@ class ADMController extends Controller
     public function redefinirSenha(Request $request)
     {
         $ADM =  ADM::where('email', $request->email)->first();
-        
         if (!isset($ADM)) {
             return response()->json([
                 'status' => false,
                 'message' => "ADM não encontrado"
             ]);
         }
-
         $ADM->password = Hash::make($ADM->cpf);
         $ADM->update();    
-
         return response()->json([
             'status' => false,
             'message' => "Sua senha foi atualizada"
         ]);
     }
-
 
     public function excluir($id)
     {
@@ -57,13 +52,11 @@ class ADMController extends Controller
             ]);
         }
         $ADM ->delete();
-
         return response()->json([
             'status' => false,
             'message' => 'ADM excluido com sucesso'
         ]);
     }
-
 
     public function pesquisarPorNome(Request $request)
     {
@@ -80,18 +73,15 @@ class ADMController extends Controller
         ]);
     }
 
-
     public function update(ADMFormRequestUpdate $request)
     {
         $ADM  = ADM::find($request->id);
-
         if (!isset($ADM )) {
             return response()->json([
                 'status' => false,
                 'message' => "ADM não encontrado"
             ]);
         }
-
         if (isset($request->nome)) {
             $ADM ->nome = $request->nome;
         }
@@ -134,9 +124,7 @@ class ADMController extends Controller
         if (isset($request->password)) {
             $ADM->password = $request->password;
         }
-
         $ADM->update();
-
         return response()->json([
             'status' => false,
             'message' => "ADM atualizado"

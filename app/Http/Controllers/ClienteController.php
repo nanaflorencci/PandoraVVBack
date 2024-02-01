@@ -28,7 +28,6 @@ class ClienteController extends Controller
             'complemento' => $request->complemento,
             'password' => Hash::make($request->senha),
         ]);
-
         return response()->json([
             'success' => true,
             'message' => "Cliente cadastrado com sucesso",
@@ -45,26 +44,23 @@ class ClienteController extends Controller
                 'data' => $Cliente
             ]);
         }
-
         return response()->json([
             'status' => false,
             'message' => 'não há resultados para pesquisa.'
         ]);
     }
+
     public function redefinirSenha(Request $request)
     {
         $Cliente =  Cliente::where('email', $request->email)->first();
-        
         if (!isset($Cliente)) {
             return response()->json([
                 'status' => false,
                 'message' => "Cliente não encontrado"
             ]);
         }
-
         $Cliente->password = Hash::make($Cliente->cpf);
         $Cliente->update();    
-
         return response()->json([
             'status' => false,
             'message' => "Sua senha foi atualizada"
@@ -81,27 +77,21 @@ class ClienteController extends Controller
             ]);
         }
         $Cliente->delete();
-
         return response()->json([
             'status' => false,
             'message' => 'Cliente excluido com sucesso'
         ]);
     }
 
-
-
-
     public function update(ClienteFormRequestUpdate $request)
     {
         $Cliente = Cliente::find($request->id);
-
         if (!isset($Cliente)) {
             return response()->json([
                 'status' => false,
                 'message' => "Cliente não encontrado"
             ]);
         }
-
         if (isset($request->nome)) {
             $Cliente->nome = $request->nome;
         }
@@ -144,9 +134,7 @@ class ClienteController extends Controller
         if (isset($request->password)) {
             $Cliente->password = $request->password;
         }
-
         $Cliente->update();
-
         return response()->json([
             'status' => false,
             'message' => "Cliente atualizado"
