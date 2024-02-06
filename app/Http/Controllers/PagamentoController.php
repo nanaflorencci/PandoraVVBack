@@ -18,7 +18,7 @@ class PagamentoController extends Controller
         ]);
         return response()->json([
             "success" => true,
-            "message" => "Pagamento cadastrado com êxito",
+            "message" => "Pagamento cadastrado com êxito.",
             "data" => $pagamento
         ], 200);
     }
@@ -34,7 +34,7 @@ class PagamentoController extends Controller
         }
         return response()->json([
             'status' => false,
-            'data' => "Pagamento não encontrado"
+            'data' => "Pagamento não encontrado."
         ]);
     }
 
@@ -44,13 +44,13 @@ class PagamentoController extends Controller
         if (!isset($pagamento)) {
             return response()->json([
                 'status' => false,
-                'message' => "Pagamento não encontrado"
+                'message' => "Pagamento não encontrado."
             ]);
         }
         $pagamento->delete();
         return response()->json(([
             'status' => true,
-            'message' =>  "Pagamento excluído com êxito"
+            'message' =>  "Pagamento excluído com êxito."
         ]));
     }
     
@@ -60,7 +60,7 @@ class PagamentoController extends Controller
         if (!isset($pagamento)) {
             return response()->json([
                 'status' => false,
-                'message' => 'Pagamento não encontrado'
+                'message' => 'Pagamento não encontrado.'
             ]);
         }
         if (isset($request->nome)) {
@@ -74,17 +74,17 @@ class PagamentoController extends Controller
         $pagamento->update();
         return response()->json([
             'status' => true,
-            'message' => 'Tipo de pagamento atualizado'
+            'message' => 'Pagamento atualizado com êxito.'
         ]);
     }
 
-    public function visualizarCadastroTipoPagamento() 
+    public function visualizarPagamento() 
     { 
         $pagamento = Pagamento::all(); 
         if (!isset($pagamento)) { 
             return response()->json([ 
                 'status' => false, 
-                'message' => 'Não há registros no sistema' 
+                'message' => 'Não há registros no sistema.' 
             ]); 
         } 
         return response()->json([ 
@@ -93,7 +93,7 @@ class PagamentoController extends Controller
         ]); 
     } 
 
-    public function visualizarCadastroPagamentoHabilitado()
+    public function visualizarPagamentoHabilitado()
     {
         $pagamento = Pagamento::where('status', 'habilitado')->get();
         if ($pagamento->count() > 0) {
@@ -104,11 +104,11 @@ class PagamentoController extends Controller
         }
         return response()->json([
             'status' => false,
-            'message' => 'Não há registros no sistema'
+            'message' => 'Não há registros no sistema.'
         ]);
     }
 
-    public function visualizarCadastroPagamentoDesabilitado()
+    public function visualizarPagamentoDesabilitado()
     {
         $pagamento = Pagamento::where('status', 'desabilitado')->get();
         if ($pagamento->count() > 0) {
@@ -119,7 +119,7 @@ class PagamentoController extends Controller
         }
         return response()->json([
             'status' => false,
-            'message' => 'Não há registros no sistema'
+            'message' => 'Não há registros no sistema.'
         ]);
     }
 }

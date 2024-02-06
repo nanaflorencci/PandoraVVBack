@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Hash;
 
 class ProfissionalController extends Controller
 {
-    public function Profissional(ProfissionalFormRequest $request)
+    public function CadastroProfissional(ProfissionalFormRequest $request)
     {
         $Profissional = Profissional::create([
             'nome' => $request->nome,
@@ -32,12 +32,12 @@ class ProfissionalController extends Controller
         ]);
         return response()->json([
             'success' => true,
-            'message' => "Profissional cadastrado com sucesso",
+            'message' => "Profissional cadastrado com êxito.",
             'data' => $Profissional
         ], 200);
     }
 
-    public function pesquisarPorNome(Request $request)
+    public function PesquisarPorNomeProfissional(Request $request)
     {
         $Profissional =  Profissional::where('nome', 'like', '%' . $request->nome . '%')->get();
         if (count($Profissional) > 0) {
@@ -48,58 +48,72 @@ class ProfissionalController extends Controller
         }
         return response()->json([
             'status' => false,
-            'message' => "não há resultados para pesquisa."
+            'message' => "Não há resultados para pesquisa."
         ]);
     }
 
-    public function redefinirSenha(Request $request)
-    {
-        $Profissional =  Profissional::where('email', $request->email)->first();
-        
-        if (!isset($Profissional)) {
-            return response()->json([
-                'status' => false,
-                'message' => "Profissional não encontrado"
-            ]);
-        }
-        $Profissional->password = Hash::make($Profissional->cpf);
-        $Profissional->update();    
-        return response()->json([
-            'status' => false,
-            'message' => "Sua senha foi atualizada"
-        ]);
-    }
-
-    public function excluir($id)
+    public function DeletarProfissional($id)
     {
         $Profissional = Profissional::find($id);
         if (!isset($Profissional)) {
             return response()->json([
                 "status" => false,
-                "message" => "Profissional não encontrado"
+                "message" => "Profissional não encontrado."
             ]);
         }
         $profissional_agendamento = Agenda::where('profissional_id', $id)->get(); 
         if(count($profissional_agendamento) > 0){ 
             return response()->json([
                 'status' => false, 
-                'message' => 'Não foi possível excluir pois o profissional possui agendamentos registrados.'
+                'message' => 'Não foi possível excluir, pois o profissional possui agendamentos registrados.'
             ]);
         }
         $Profissional->delete();
         return response()->json([
             'status' => false,
-            'message' => 'Profissional excluido com sucesso'
+            'message' => 'Profissional excluído com êxito.'
         ]);
     }
 
-    public function update(ProfissionalFormRequestUpdate $request)
+    public function RedefinirSenhaProfissional(Request $request)
+    {
+        $Profissional =  Profissional::where('email', $request->email)->first();
+        $Profissional =  Profissional::where('cpf', $request->cpf)->first();
+        if (!isset($Profissional)) {
+            return response()->json([
+                'status' => false,
+                'message' => "Profissional não encontrado."
+            ]);
+        }
+        $Profissional->password = Hash::make($Profissional->cpf);
+        $Profissional->update();    
+        return response()->json([
+            'status' => false,
+            'message' => "Sua senha foi atualizada com êxito."
+        ]);
+    }
+
+    public function VisualizarProfissional(){
+        $Profissional = Profissional::all();
+        if(count($Profissional)==0){
+            return response()->json([
+                'status'=> false,
+                'message'=> "Não há registros no sistema."
+            ]);
+        }
+        return response()->json([
+            'status'=> true,
+            'data' => $Profissional
+        ]);
+    }
+
+    public function UpdateProfissional(ProfissionalFormRequestUpdate $request)
     {
         $Profissional = Profissional::find($request->id);
         if (!isset($Profissional)) {
             return response()->json([
                 'status' => false,
-                'message' => "Profissional não encontrado"
+                'message' => "Profissional não encontrado."
             ]);
         }
         if (isset($request->nome)) {
@@ -147,7 +161,7 @@ class ProfissionalController extends Controller
         $Profissional->update();
         return response()->json([
             'status' => false,
-            'message' => "Profissional atualizado"
+            'message' => "Profissional atualizado com êxito."
         ]);
     }
 }

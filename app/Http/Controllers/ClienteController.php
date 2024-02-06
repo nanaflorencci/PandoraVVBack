@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 
 class ClienteController extends Controller
 {
-    public function Clientes(ClienteFormRequest $request)
+    public function CadastroCliente(ClienteFormRequest $request)
     {
         $Cliente = Cliente::create([
             'nome' => $request->nome,
@@ -30,12 +30,12 @@ class ClienteController extends Controller
         ]);
         return response()->json([
             'success' => true,
-            'message' => "Cliente cadastrado com sucesso",
+            'message' => "Cliente cadastrado com êxito.",
             'data' => $Cliente
         ], 200);
     }
 
-    public function pesquisarPorNome(Request $request)
+    public function PesquisarPorNomeCliente(Request $request)
     {
         $Cliente =  Cliente::where('nome', 'like', '%' . $request->nome . '%')->get();
         if (count($Cliente) > 0) {
@@ -46,11 +46,27 @@ class ClienteController extends Controller
         }
         return response()->json([
             'status' => false,
-            'message' => 'não há resultados para pesquisa.'
+            'message' => 'Não há resultados para pesquisa.'
         ]);
     }
 
-    public function redefinirSenha(Request $request)
+    public function DeletarCliente($id)
+    {
+        $Cliente = Cliente::find($id);
+        if (!isset($Cliente)) {
+            return response()->json([
+                'status' => false,
+                'message' => "Cliente não encontrado"
+            ]);
+        }
+        $Cliente->delete();
+        return response()->json([
+            'status' => false,
+            'message' => 'Cliente excluído com êxito.'
+        ]);
+    }
+
+    public function RedefinirSenhaCliente(Request $request)
     {
         $Cliente =  Cliente::where('email', $request->email)->first();
         if (!isset($Cliente)) {
@@ -63,33 +79,31 @@ class ClienteController extends Controller
         $Cliente->update();    
         return response()->json([
             'status' => false,
-            'message' => "Sua senha foi atualizada"
+            'message' => "Sua senha foi atualizada com êxito."
         ]);
     }
 
-    public function excluir($id)
-    {
-        $Cliente = Cliente::find($id);
-        if (!isset($Cliente)) {
+    public function VisualizarCliente(){
+        $Cliente = Cliente::all();
+        if(count($Cliente)==0){
             return response()->json([
-                'status' => false,
-                'message' => "Cliente não encontrado"
+                'status'=> false,
+                'message'=> "Não há registros no sistema."
             ]);
         }
-        $Cliente->delete();
         return response()->json([
-            'status' => false,
-            'message' => 'Cliente excluido com sucesso'
+            'status'=> true,
+            'data' => $Cliente
         ]);
     }
 
-    public function update(ClienteFormRequestUpdate $request)
+    public function UpdateCliente(ClienteFormRequestUpdate $request)
     {
         $Cliente = Cliente::find($request->id);
         if (!isset($Cliente)) {
             return response()->json([
                 'status' => false,
-                'message' => "Cliente não encontrado"
+                'message' => "Cliente não encontrado."
             ]);
         }
         if (isset($request->nome)) {
@@ -137,7 +151,7 @@ class ClienteController extends Controller
         $Cliente->update();
         return response()->json([
             'status' => false,
-            'message' => "Cliente atualizado"
+            'message' => "Cliente atualizado com êxito."
         ]);
     }
 }

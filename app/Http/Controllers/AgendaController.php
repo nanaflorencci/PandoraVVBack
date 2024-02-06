@@ -22,7 +22,7 @@ class AgendaController extends Controller
 
         return response()->json([
             "success" => true,
-            "message" => "Agenda cadastrada",
+            "message" => "Agenda cadastrada com êxito.",
             "data" => $agenda
         ], 200);
     }
@@ -32,7 +32,7 @@ class AgendaController extends Controller
         if (count($agenda) > 0) {
             return response()->json([
                 "status" => false,
-                "message" => "Horario já cadastrado",
+                "message" => "Horário já cadastrado.",
                 "data" => $agenda
             ], 200);    
         } else {
@@ -42,7 +42,7 @@ class AgendaController extends Controller
             ]);
             return response()->json([
                 "status" => true,
-                "message" => "Agendado com sucesso",
+                "message" => "Agendado com êxito.",
                 "data" => $agenda
             ], 200);
         }
@@ -76,13 +76,27 @@ class AgendaController extends Controller
         if (!isset($agenda)) {
             return response()->json([
                 'status' => false,
-                'message' => " não encontrado"
+                'message' => "Agenda não encontrada."
             ]);
         }
         $agenda->delete();
         return response()->json([
             'status' => true,
-            'message' => " excluído com sucesso"
+            'message' => "Agenda excluída com êxito."
+        ]);
+    }
+
+    public function VisualizarAgenda(){
+        $agenda = Agenda::all();
+        if(count($agenda)==0){
+            return response()->json([
+                'status'=> false,
+                'message'=> "Não há registros no sistema"
+            ]);
+        }
+        return response()->json([
+            'status'=> true,
+            'data' => $agenda
         ]);
     }
 
@@ -92,7 +106,7 @@ class AgendaController extends Controller
         if (!isset($agenda)) {
             return response()->json([
                 'status' => false,
-                'message' => "agenda não encontrado"
+                'message' => "Agenda não encontrada."
             ]);
         }
         if(isset($request->clienteid)){
@@ -116,21 +130,7 @@ class AgendaController extends Controller
         $agenda->update();
         return response()->json([
             'status' => true,
-            'message' => " atualizado."
-        ]);
-    }
-
-    public function retornarTudo(){
-        $agenda = Agenda::all();
-        if(count($agenda)==0){
-            return response()->json([
-                'status'=> false,
-                'message'=> " nao encontrado"
-            ]);
-        }
-        return response()->json([
-            'status'=> true,
-            'data' => $agenda
+            'message' => "Agenda atualizada com êxito."
         ]);
     }
 }

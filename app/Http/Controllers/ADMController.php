@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 
 class ADMController extends Controller
 {
-    public function ADMcadastro(ADMFormRequest $request)
+    public function CadastroADM(ADMFormRequest $request)
     {
         $ADM = ADM::create([
             'nome' => $request->nome,
@@ -20,45 +20,12 @@ class ADMController extends Controller
         ]);
         return response()->json([
             'success' => true,
-            'message' => "ADM cadastrado com sucesso",
+            'message' => "ADM cadastrado com êxito.",
             'data' => $ADM
         ], 200);
     }
 
-    public function redefinirSenha(Request $request)
-    {
-        $ADM =  ADM::where('email', $request->email)->first();
-        if (!isset($ADM)) {
-            return response()->json([
-                'status' => false,
-                'message' => "ADM não encontrado"
-            ]);
-        }
-        $ADM->password = Hash::make($ADM->cpf);
-        $ADM->update();    
-        return response()->json([
-            'status' => false,
-            'message' => "Sua senha foi atualizada"
-        ]);
-    }
-
-    public function excluir($id)
-    {
-        $ADM  = ADM ::find($id);
-        if (!isset($ADM )) {
-            return response()->json([
-                'status' => false,
-                'message' => "ADM não encontrado"
-            ]);
-        }
-        $ADM ->delete();
-        return response()->json([
-            'status' => false,
-            'message' => 'ADM excluido com sucesso'
-        ]);
-    }
-
-    public function pesquisarPorNome(Request $request)
+    public function PesquisarPorNomeADM(Request $request)
     {
         $ADM =  ADM::where('nome', 'like', '%' . $request->nome . '%')->get();
         if (count($ADM) > 0) {
@@ -69,17 +36,64 @@ class ADMController extends Controller
         }
         return response()->json([
             'status' => false,
-            'message' => 'não há resultados para pesquisa.'
+            'message' => 'Não há resultados para pesquisa.'
         ]);
     }
 
-    public function update(ADMFormRequestUpdate $request)
+    public function DeletarADM($id)
+    {
+        $ADM  = ADM ::find($id);
+        if (!isset($ADM )) {
+            return response()->json([
+                'status' => false,
+                'message' => "ADM não encontrado."
+            ]);
+        }
+        $ADM ->delete();
+        return response()->json([
+            'status' => false,
+            'message' => 'ADM excluído com êxito.'
+        ]);
+    }
+
+    public function RedefinirSenhaADM(Request $request)
+    {
+        $ADM =  ADM::where('email', $request->email)->first();
+        if (!isset($ADM)) {
+            return response()->json([
+                'status' => false,
+                'message' => "ADM não encontrado."
+            ]);
+        }
+        $ADM->password = Hash::make($ADM->cpf);
+        $ADM->update();    
+        return response()->json([
+            'status' => false,
+            'message' => "Sua senha foi atualizada."
+        ]);
+    }
+
+    public function VisualizarADM(){
+        $ADM = ADM::all();
+        if(count($ADM)==0){
+            return response()->json([
+                'status'=> false,
+                'message'=> "Não há registros no sistema."
+            ]);
+        }
+        return response()->json([
+            'status'=> true,
+            'data' => $ADM
+        ]);
+    }
+
+    public function UpdateADM(ADMFormRequestUpdate $request)
     {
         $ADM  = ADM::find($request->id);
         if (!isset($ADM )) {
             return response()->json([
                 'status' => false,
-                'message' => "ADM não encontrado"
+                'message' => "ADM não encontrado."
             ]);
         }
         if (isset($request->nome)) {
@@ -127,7 +141,7 @@ class ADMController extends Controller
         $ADM->update();
         return response()->json([
             'status' => false,
-            'message' => "ADM atualizado"
+            'message' => "ADM atualizado com êxito."
         ]);
     }
 }

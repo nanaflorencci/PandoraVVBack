@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class ServicoController extends Controller
 {
-    public function Servico(ServicoFormRequest $request)
+    public function CadastroServico(ServicoFormRequest $request)
     {
         $servico = Servico::create([
             'nome' => $request->nome,
@@ -19,12 +19,12 @@ class ServicoController extends Controller
         ]);
         return response()->json([
             'sucess' => true,
-            'message' => "Servico Cadastrado com sucesso",
+            'message' => "Servico Cadastrado com êxit.",
             'data' => $servico
         ]);
     }
 
-    public function pesquisarPorNome(Request $request)
+    public function PesquisarPorNomeServico(Request $request)
     {
         $servico = Servico::where('nome', 'like', '%' . $request->nome . '%')->get();
         if (count($servico) > 0) {
@@ -39,28 +39,42 @@ class ServicoController extends Controller
         ]);
     }
     
-    public function excluir($id)
+    public function DeletarServico($id)
     {
         $servico = Servico::find($id);
         if (!isset($servico)) {
             return response()->json([
                 'status' => false,
-                'message' => "Servico não encontrado"
+                'message' => "Serviço não encontrado."
             ]);
         }
         $servico->delete();
         return response()->json([
             'status' => true,
-            'message' => "servico excluído com sucesso"
+            'message' => "Servico excluído com êxito."
         ]);
     }
 
-    public function update(ServicoFormRequestUpdate $request){
+    public function VisualizarServico(){
+        $servico = Servico::all();
+        if(count($servico)==0){
+            return response()->json([
+                'status'=> false,
+                'message'=> "Não há registros no sistema."
+            ]);
+        }
+        return response()->json([
+            'status'=> true,
+            'data' => $servico
+        ]);
+    }
+
+    public function UpdateServico(ServicoFormRequestUpdate $request){
         $servico = Servico::find($request->id);
         if(!isset($servico)){
             return response()->json([
                 'status' => false,
-                'message' => "Servico não encontrado"
+                'message' => "Serviço não encontrado."
             ]);
         }
         if(isset($request->nome)){
@@ -78,7 +92,7 @@ class ServicoController extends Controller
         $servico->update();
         return response()->json([
             'status' => false,
-            'message' => "Servico atualizado"
+            'message' => "Serviço atualizado com êxito."
         ]);
     }
 }
