@@ -27,6 +27,14 @@ Route::delete('adm/delete/{id}', [ADMController::class, 'DeletarADM']);
 Route::post('adm/redefinir/senha',[ADMController::class, 'RedefinirSenhaADM']);
 Route::get('adm/visualizar', [ADMController::class, 'VisualizarADM']);
 Route::put('adm/update', [ADMController::class, 'UpdateADM']);
+Route::post('/create', [ADMController::class, 'store']);
+Route::post('/login', [ADMController::class, 'login']);
+Route::get('adm/logado', [ADMController::class, 'verificaUsuarioLogado'])
+    ->middleware(
+        'auth:sanctum',
+        SetSanctumGuard::class,
+        IsAuthenticated::class
+    );
 
 Route::post('adm/cliente/cadastro', [ClienteController::class, 'CadastroCliente']);
 Route::post('adm/cliente/pesquisar/nome', [ClienteController::class, 'PesquisarPorNomeCliente']);

@@ -13,8 +13,13 @@ class SetSanctumGuardMiddleware
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next)
     {
+        if (Str::startsWith($request->getRequestUri(), '/api/adm')) {
+            config(['sanctum.guard' => 'ADM']);
+        }else{
+            return 'Sem guard';
+        }
         return $next($request);
     }
 }

@@ -13,8 +13,15 @@ class VerifyAdminGuardMiddleware
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next)
     {
+        if(auth()->user()instanceof ADM){
+            return response()->json([
+                'status'=>false,
+                'message'=>'Não é uma instância de ADM'
+            ]);
+            }
+            
         return $next($request);
     }
 }

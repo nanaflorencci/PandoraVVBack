@@ -8,11 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class ADM extends Model
 {
     use HasFactory;
-    
-    protected $fillable =[
+    use HasApiTokens;
+    use Notifiable;
+
+    protected $fillable = [
         'nome',
         'email',
         'cpf',
         'password'
-    ];    
+    ];
 }
